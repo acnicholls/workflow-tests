@@ -18,7 +18,8 @@ jobs:
       contents: write
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      VERSION_PREFIX: data-nuget.v
+      GIT_TAG_VERSION_PREFIX: data-nuget.v
+      NUGET_VERSION_PREFIX: data-nuget.
     steps:
       - name: Init the Repo
         id: init-the-repo
@@ -37,8 +38,8 @@ jobs:
         uses: ietf-tools/semver-action@v1
         with:
           token: ${{ github.token }}
-          branch: main
-          prefix: ${{ env.VERSION_PREFIX }}
+          branch: ${{ github.ref }}
+          prefix: ${{ env.GIT_TAG_VERSION_PREFIX }}
           patchAll: true
           skipInvalidTags: true
           noVersionBumpBehavior: patch
@@ -46,11 +47,13 @@ jobs:
       - name: get output values
         id: get-outputs
         shell: bash
-        run: echo ${{ steps.semver.outputs.current }}
-          echo ${{ steps.semver.outputs.next }}
-          echo ${{ steps.semver.outputs.nextStrict }}
-          echo ${{ steps.semver.outputs.nextMajor }}
-          echo ${{ steps.semver.outputs.bump }}
+        run: |
+          echo "Current: ${{ steps.semver.outputs.current }}"
+          echo "Next: ${{ steps.semver.outputs.next }}"
+          echo "NextStrict: ${{ steps.semver.outputs.nextStrict }}"
+          echo "NextMajor: ${{ steps.semver.outputs.nextMajor }}"
+          echo "Bump: ${{ steps.semver.outputs.bump }}"
+          echo "Nuget Version: acnicholls-identity.data.${{ steps.semver.outputs.nextStrict }}-preview"
 
     #   # tag the nuget version
     #   - name: Tag the Repo
