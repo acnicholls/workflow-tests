@@ -41,6 +41,7 @@ jobs:
           prefix: ${{ env.VERSION_PREFIX }}
           patchAll: true
           skipInvalidTags: true
+          noVersionBumpBehavior: patch
 
       - name: get output values
         id: get-outputs
