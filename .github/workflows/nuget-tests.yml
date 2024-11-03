@@ -57,7 +57,7 @@ jobs:
           echo "Nuget Version: workflow-tests.nuget1.${{ steps.semver.outputs.next }}-preview"
           next_version=${{ steps.semver.outputs.next }}
           echo $next_version
-          next_version_number=$next_version.remove('${{ env.GIT_TAG_VERSION_PREFIX }}');
+          next_version_number=${next_version#${{ env.GIT_TAG_VERSION_PREFIX }}}
           echo $next_version_number
           echo "NEXT_VERSION_NUMBER=$next_version_number" >> $GITHUB_OUTPUT
 
