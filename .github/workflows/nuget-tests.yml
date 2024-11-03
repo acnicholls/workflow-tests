@@ -53,7 +53,7 @@ jobs:
           echo "NextStrict: ${{ steps.semver.outputs.nextStrict }}"
           echo "NextMajor: ${{ steps.semver.outputs.nextMajor }}"
           echo "Bump: ${{ steps.semver.outputs.bump }}"
-          echo "Nuget Version: acnicholls-identity.data.${{ steps.semver.outputs.nextStrict }}-preview"
+          echo "Nuget Version: workflow-tests.nuget1.${{ steps.semver.outputs.next }}-preview"
 
     #   # tag the nuget version
     #   - name: Tag the Repo
