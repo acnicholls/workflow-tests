@@ -87,16 +87,9 @@ jobs:
         run: |
           ~/.dotnet/dotnet build . \
                 --configuration Debug \
-                /p:AssemblyVersion=${{ steps.get-semver-outputs.outputs.NEXT_VERSION_NUMBER }} 
-                /p:Version=${{ steps.get-semver-outputs.outputs.NEXT_VERSION_NUMBER }}
-
-      - name: dotnet pack and push nuget
-        run: |
-          ~/.dotnet/dotnet pack . \
-          --configuration Debug \
-          -p:PackageVersion=${{ steps.get-semver-outputs.outputs.NEXT_VERSION_NUMBER }} \
-          --version-suffix=preview
-
+                /p:AssemblyVersion=${{ steps.get-semver-outputs.outputs.NEXT_VERSION_NUMBER }} \
+                /p:Version=${{ steps.get-semver-outputs.outputs.NEXT_VERSION_NUMBER }} \
+                /p:PackageVersion=${{ steps.get-semver-outputs.outputs.NEXT_VERSION_NUMBER }}
           ~/.dotnet/dotnet nuget push "bin/Debug/workflow-tests.${{ steps.get-semver-outputs.outputs.NEXT_VERSION_NUMBER }}-preview.nupkg" \
           --api-key ${{ secrets.GITHUB_TOKEN }} \
           --source "github" \
