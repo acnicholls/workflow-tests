@@ -39,6 +39,7 @@ jobs:
           token: ${{ github.token }}
           branch: main
           prefix: ${{ env.VERSION_PREFIX }}
+          patchList: add
           patchAll: true
           skipInvalidTags: true
 
