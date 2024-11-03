@@ -56,7 +56,7 @@ jobs:
           echo "Bump: ${{ steps.semver.outputs.bump }}"
           echo "Nuget Version: workflow-tests.nuget1.${{ steps.semver.outputs.next }}-preview"
           set next_version=${{ steps.semver.outputs.next }}
-          echo "set NEXT_VERSION_NUMBER=next_version.remove('${{ env.GIT_TAG_VERSION_PREFIX }}')" >> $GITHUB_OUTPUT
+          echo "NEXT_VERSION_NUMBER=next_version.remove('${{ env.GIT_TAG_VERSION_PREFIX }}')" >> $GITHUB_OUTPUT
 
       - name: get output values
         id: get-version-outputs
@@ -70,6 +70,7 @@ jobs:
         shell: bash
         run: |
           git tag -m "tagging the nuget version" ${{ steps.semver.outputs.next }} ${{ github.ref }}
+          git push
 
       # # build the solution, so the pack has fresh DLLs
       # - name: dotnet build
