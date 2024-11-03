@@ -55,8 +55,11 @@ jobs:
           echo "NextMajor: ${{ steps.semver.outputs.nextMajor }}"
           echo "Bump: ${{ steps.semver.outputs.bump }}"
           echo "Nuget Version: workflow-tests.nuget1.${{ steps.semver.outputs.next }}-preview"
-          set next_version=${{ steps.semver.outputs.next }}
-          echo "NEXT_VERSION_NUMBER=next_version.remove('${{ env.GIT_TAG_VERSION_PREFIX }}')" >> $GITHUB_OUTPUT
+          next_version=${{ steps.semver.outputs.next }}
+          echo $next_version
+          next_version_number=$next_version.remove('${{ env.GIT_TAG_VERSION_PREFIX }}');
+          echo $next_version_number
+          echo "NEXT_VERSION_NUMBER=$next_version_number" >> $GITHUB_OUTPUT
 
       - name: get output values
         id: get-version-outputs
