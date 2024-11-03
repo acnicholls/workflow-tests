@@ -34,6 +34,13 @@ jobs:
         id: checkout-code
         uses: actions/checkout@v4
 
+      - name: Install dotnet
+        env:
+          DOTNET_INSTALL_DIR: "~/.dotnet"
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.x"
+
       - name: Get Next Version
         id: semver
         uses: ietf-tools/semver-action@v1
@@ -80,17 +87,17 @@ jobs:
         run: |
           ~/.dotnet/dotnet build . \
                 --configuration Debug \
-                /p:AssemblyVersion=${{ steps.get-version-outputs.outputs.NEXT_VERSION_NUMBER }} 
-                /p:Version=${{ steps.get-version-outputs.outputs.NEXT_VERSION_NUMBER }}
+                /p:AssemblyVersion=${{ steps.get-semver-outputs.outputs.NEXT_VERSION_NUMBER }} 
+                /p:Version=${{ steps.get-semver-outputs.outputs.NEXT_VERSION_NUMBER }}
 
       - name: dotnet pack and push nuget
         run: |
           ~/.dotnet/dotnet pack . \
           --configuration Debug \
-          -p:PackageVersion=${{ steps.get-version-outputs.outputs.NEXT_VERSION_NUMBER }} \
+          -p:PackageVersion=${{ steps.get-semver-outputs.outputs.NEXT_VERSION_NUMBER }} \
           --version-suffix=preview
 
-          ~/.dotnet/dotnet nuget push "bin/Debug/workflow-tests.${{ steps.get-version-outputs.outputs.NEXT_VERSION_NUMBER }}-preview.nupkg" \
+          ~/.dotnet/dotnet nuget push "bin/Debug/workflow-tests.${{ steps.get-semver-outputs.outputs.NEXT_VERSION_NUMBER }}-preview.nupkg" \
           --api-key ${{ secrets.GITHUB_TOKEN }} \
           --source "github" \
           --skip-duplicate
