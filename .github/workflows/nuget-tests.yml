@@ -18,7 +18,7 @@ jobs:
       contents: write
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      GIT_TAG_VERSION_PREFIX: data-nuget.v
+      GIT_TAG_VERSION_PREFIX: data-nuget.
       NUGET_VERSION_PREFIX: data-nuget.
     steps:
       - name: Init the Repo
