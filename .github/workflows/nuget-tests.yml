@@ -18,7 +18,7 @@ jobs:
       contents: write
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      VERSION_PREFIX: data-nuget.v
+      GIT_TAG_VERSION_PREFIX: data-nuget.
     steps:
       - name: Init the Repo
         id: init-the-repo
@@ -26,6 +26,8 @@ jobs:
         run: |
           git config --global init.defaultBranch main
           git init
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
 
       # get the latest code from the repo
       - name: Checkout Code
@@ -37,30 +39,42 @@ jobs:
         uses: ietf-tools/semver-action@v1
         with:
           token: ${{ github.token }}
-          branch: main
-          prefix: ${{ env.VERSION_PREFIX }}
+          branch: ${{ github.ref }}
+          prefix: ${{ env.GIT_TAG_VERSION_PREFIX }}
           patchAll: true
           skipInvalidTags: true
+          noVersionBumpBehavior: patch
 
       - name: get output values
-        id: get-outputs
+        id: get-semver-outputs
         shell: bash
-        run: echo ${{ steps.semver.outputs.current }}
-          echo ${{ steps.semver.outputs.next }}
-          echo ${{ steps.semver.outputs.nextStrict }}
-          echo ${{ steps.semver.outputs.nextMajor }}
-          echo ${{ steps.semver.outputs.bump }}
+        run: |
+          echo "Current: ${{ steps.semver.outputs.current }}"
+          echo "Next: ${{ steps.semver.outputs.next }}"
+          echo "NextStrict: ${{ steps.semver.outputs.nextStrict }}"
+          echo "NextMajor: ${{ steps.semver.outputs.nextMajor }}"
+          echo "Bump: ${{ steps.semver.outputs.bump }}"
+          echo "Nuget Version: workflow-tests.nuget1.${{ steps.semver.outputs.next }}-preview"
+          set next_version=${{ steps.semver.outputs.next }}
+          echo "set NEXT_VERSION_NUMBER=next_version.remove('${{ env.GIT_TAG_VERSION_PREFIX }}')" >> $GITHUB_OUTPUT
 
-    #   # tag the nuget version
-    #   - name: Tag the Repo
-    #     id: tag-the-repo
-    #     shell: bash
-    #     run: |
-    #       git tag -a -m "tagging the nuget version" ${{ steps.semver.outputs.next }}
+      - name: get output values
+        id: get-version-outputs
+        shell: bash
+        run: |
+          echo "output: ${{ steps.get-semver-outputs.outputs.NEXT_VERSION_NUMBER }}"
 
-    #   - name: dotnet build
-    #     run: |
-    #       ~/.dotnet/dotnet build . --configuration Debug /p:AssemblyVersion=${{ steps.semver.outputs.next }} /p:Version=${{ steps.semver.outputs.next }}
+      # tag the nuget version
+      - name: Tag the Repo
+        id: tag-the-repo
+        shell: bash
+        run: |
+          git tag -m "tagging the nuget version" ${{ steps.semver.outputs.next }} ${{ github.ref }}
+
+      # # build the solution, so the pack has fresh DLLs
+      # - name: dotnet build
+      #   run: |
+      #     ~/.dotnet/dotnet build . --configuration Debug /p:AssemblyVersion=${{ steps.semver.outputs.next }} /p:Version=${{ steps.semver.outputs.next }}
 
     #   - name: dotnet pack and push data
     #     run: |
