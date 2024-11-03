@@ -25,6 +25,8 @@ jobs:
         shell: bash
         run: |
           git config --global init.defaultBranch main
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
           git init
 
       # get the latest code from the repo
@@ -44,7 +46,7 @@ jobs:
           noVersionBumpBehavior: patch
 
       - name: get output values
-        id: get-outputs
+        id: get-semver-outputs
         shell: bash
         run: |
           echo "Current: ${{ steps.semver.outputs.current }}"
@@ -53,19 +55,6 @@ jobs:
           echo "NextMajor: ${{ steps.semver.outputs.nextMajor }}"
           echo "Bump: ${{ steps.semver.outputs.bump }}"
           echo "Nuget Version: workflow-tests.nuget1.${{ steps.semver.outputs.next }}-preview"
-
-      # tag the nuget version
-      - name: Tag the Repo
-        id: tag-the-repo
-        shell: bash
-        run: |
-          git tag -m "tagging the nuget version" ${{ steps.semver.outputs.next }} ${{ github.ref }}
-
-      # remove the prefix and just have the version number
-      - name: Get Version Numebr Only
-        id: get-version-number
-        shell: bash
-        run: |
           set next_version=${{ steps.semver.outputs.next }}
           echo "set NEXT_VERSION_NUMBER=next_version.remove('${{ env.GIT_TAG_VERSION_PREFIX }}')" >> $GITHUB_OUTPUT
 
@@ -73,7 +62,14 @@ jobs:
         id: get-version-outputs
         shell: bash
         run: |
-          echo "output: ${{ steps.get-version-number.outputs.NEXT_VERSION_NUMBER }}"
+          echo "output: ${{ steps.get-semver-outputs.outputs.NEXT_VERSION_NUMBER }}"
+
+      # tag the nuget version
+      - name: Tag the Repo
+        id: tag-the-repo
+        shell: bash
+        run: |
+          git tag -m "tagging the nuget version" ${{ steps.semver.outputs.next }} ${{ github.ref }}
 
       # # build the solution, so the pack has fresh DLLs
       # - name: dotnet build
