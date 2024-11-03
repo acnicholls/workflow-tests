@@ -1,0 +1,72 @@
+# This script tags the current commit, and builds a release package
+name: pack-push-data-nuget-test
+run-name: Build, Pack and Push Data Nuget from `test` for ${{ github.event_name }} triggered by ${{ github.triggering_actor }}
+concurrency:
+  group: test-nuget
+
+on:
+  push:
+    branches:
+      - develop
+      - main
+  workflow_dispatch:
+
+jobs:
+  tag-and-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      VERSION_PREFIX: data-nuget.v
+    steps:
+      - name: Init the Repo
+        id: init-the-repo
+        shell: bash
+        run: |
+          git config --global init.defaultBranch main
+          git init
+
+      # get the latest code from the repo
+      - name: Checkout Code
+        id: checkout-code
+        uses: actions/checkout@v4
+
+      - name: Get Next Version
+        id: semver
+        uses: ietf-tools/semver-action@v1
+        with:
+          token: ${{ github.token }}
+          branch: main
+          prefix: ${{ env.VERSION_PREFIX }}
+          patchAll: true
+          skipInvalidTags: true
+
+      - name: get output values
+        id: get-outputs
+        shell: bash
+        run: echo ${{ steps.semver.outputs.current }}
+          echo ${{ steps.semver.outputs.next }}
+          echo ${{ steps.semver.outputs.nextStrict }}
+          echo ${{ steps.semver.outputs.nextMajor }}
+          echo ${{ steps.semver.outputs.bump }}
+
+    #   # tag the nuget version
+    #   - name: Tag the Repo
+    #     id: tag-the-repo
+    #     shell: bash
+    #     run: |
+    #       git tag -a -m "tagging the nuget version" ${{ steps.semver.outputs.next }}
+
+    #   - name: dotnet build
+    #     run: |
+    #       ~/.dotnet/dotnet build . --configuration Debug /p:AssemblyVersion=${{ steps.semver.outputs.next }} /p:Version=${{ steps.semver.outputs.next }}
+
+    #   - name: dotnet pack and push data
+    #     run: |
+    #       cd ${{ steps.get-sln-path.outputs.sln-path }}/src/acnicholls-identity.data
+    #       ~/.dotnet/dotnet pack . --configuration Debug
+    #       ~/.dotnet/dotnet nuget push "bin/Debug/acnicholls-identity.data.${{ steps.semver.outputs.nextStrict }}-preview.nupkg" \
+    #       --api-key ${{ secrets.GITHUB_TOKEN }} \
+    #       --source "github" \
+    #       --skip-duplicate
