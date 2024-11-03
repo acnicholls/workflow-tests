@@ -55,7 +55,7 @@ jobs:
           echo "NextMajor: ${{ steps.semver.outputs.nextMajor }}"
           echo "Bump: ${{ steps.semver.outputs.bump }}"
           echo "Nuget Version: workflow-tests.nuget1.${{ steps.semver.outputs.next }}-preview"
-          next_version=${{ steps.semver.outputs.next }}
+          next_version=${{ steps.semver.outputs.nextStrict }}
           echo $next_version
           next_version_number=${next_version#${{ env.GIT_TAG_VERSION_PREFIX }}}
           echo $next_version_number
@@ -72,19 +72,25 @@ jobs:
         id: tag-the-repo
         shell: bash
         run: |
-          git tag -m "tagging the nuget version" ${{ steps.semver.outputs.next }} ${{ github.ref }}
-          git push
+          git tag -a -m "tagging the nuget version" ${{ steps.semver.outputs.next }} ${{ github.ref }}
+          git push --follow-tags
 
-      # # build the solution, so the pack has fresh DLLs
-      # - name: dotnet build
-      #   run: |
-      #     ~/.dotnet/dotnet build . --configuration Debug /p:AssemblyVersion=${{ steps.semver.outputs.next }} /p:Version=${{ steps.semver.outputs.next }}
+      # build the solution, so the pack has fresh DLLs
+      - name: dotnet build
+        run: |
+          ~/.dotnet/dotnet build . \
+                --configuration Debug \
+                /p:AssemblyVersion=${{ steps.get-version-outputs.outputs.NEXT_VERSION_NUMBER }} 
+                /p:Version=${{ steps.get-version-outputs.outputs.NEXT_VERSION_NUMBER }}
 
-    #   - name: dotnet pack and push data
-    #     run: |
-    #       cd ${{ steps.get-sln-path.outputs.sln-path }}/src/acnicholls-identity.data
-    #       ~/.dotnet/dotnet pack . --configuration Debug
-    #       ~/.dotnet/dotnet nuget push "bin/Debug/acnicholls-identity.data.${{ steps.semver.outputs.nextStrict }}-preview.nupkg" \
-    #       --api-key ${{ secrets.GITHUB_TOKEN }} \
-    #       --source "github" \
-    #       --skip-duplicate
+      - name: dotnet pack and push nuget
+        run: |
+          ~/.dotnet/dotnet pack . \
+          --configuration Debug \
+          -p:PackageVersion=${{ steps.get-version-outputs.outputs.NEXT_VERSION_NUMBER }} \
+          --version-suffix=preview
+
+          ~/.dotnet/dotnet nuget push "bin/Debug/workflow-tests.${{ steps.get-version-outputs.outputs.NEXT_VERSION_NUMBER }}-preview.nupkg" \
+          --api-key ${{ secrets.GITHUB_TOKEN }} \
+          --source "github" \
+          --skip-duplicate
