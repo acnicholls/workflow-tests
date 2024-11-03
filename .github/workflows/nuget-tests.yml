@@ -59,7 +59,7 @@ jobs:
         id: tag-the-repo
         shell: bash
         run: |
-          git tag -a -m "tagging the nuget version" ${{ steps.semver.outputs.next }} ${{ github.ref }}
+          git tag -m "tagging the nuget version" ${{ steps.semver.outputs.next }} ${{ github.ref }}
 
       # remove the prefix and just have the version number
       - name: Get Version Numebr Only
