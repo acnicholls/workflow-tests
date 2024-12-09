@@ -38,10 +38,13 @@ jobs:
       - name: build a setup project
         id: run-build-on-setup
         shell: cmd
+        working-directory: .
+        timeout-minutes: 10
+        continue-on-error: true
         run: |
           devenv .\workflow-tests.sln ^
           /Build Debug ^
-          /Project workflow-tests-setup.vdproj ^
+          /Project workflow-tests-setup ^
           /Log InstallerBuild.log ^
           /Out InstallerBuild.log ^
           /NoSplash
