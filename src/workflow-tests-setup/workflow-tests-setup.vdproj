@@ -21,7 +21,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_73DE3C09865348EA86A5E5FF45CF4737"
+        "MsmKey" = "8:_83A5F68FCAF9410DA1C9405B1CB797CC"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -205,7 +205,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:workflow-tests-setup"
         "ProductCode" = "8:{E9892E37-6C4D-4177-8283-AEFA099298A6}"
-        "PackageCode" = "8:{04934330-59C7-4B9B-80A4-F8366110FA0C}"
+        "PackageCode" = "8:{BFEEDF0D-661C-4A2A-8BE8-6A309C6DD16A}"
         "UpgradeCode" = "8:{7B7E538E-D1F8-45F6-9D7B-F7E0CFC94769}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -325,15 +325,15 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_955D51C5E67D4F2BA42121B7E9ECD8B2"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_63679495081E47DA8A5188A15B867295"
             {
-            "Name" = "8:workflow-tests-console"
+            "Name" = "8:run test ui"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_73DE3C09865348EA86A5E5FF45CF4737"
+            "Target" = "8:_83A5F68FCAF9410DA1C9405B1CB797CC"
             "Folder" = "8:_8E1F5C93987F491A8F70EA831D14B3A1"
             "WorkingFolder" = "8:_0F8E25AADA174B02A590AD8AAFD7D1AA"
             "Icon" = "8:_2AE5C2D72F8542A686680659165A9627"
@@ -738,9 +738,9 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_73DE3C09865348EA86A5E5FF45CF4737"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_83A5F68FCAF9410DA1C9405B1CB797CC"
             {
-            "SourcePath" = "8:..\\workflow-tests\\obj\\Debug\\net8.0\\workflow-tests.dll"
+            "SourcePath" = "8:..\\..\\workflow-tests-ui\\obj\\Debug\\net8.0-windows\\workflow-tests-ui.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_0F8E25AADA174B02A590AD8AAFD7D1AA"
@@ -760,7 +760,7 @@
             "ProjectOutputGroupRegister" = "3:1"
             "OutputConfiguration" = "8:"
             "OutputGroupCanonicalName" = "8:Built"
-            "OutputProjectGuid" = "8:{6A55AC35-25BE-4A28-BCCD-0F039BB4CAE3}"
+            "OutputProjectGuid" = "8:{EE35D236-54FD-4D59-BD92-F724086A4B10}"
             "ShowKeyOutput" = "11:TRUE"
                 "ExcludeFilters"
                 {
