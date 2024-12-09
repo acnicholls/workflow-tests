@@ -29,11 +29,11 @@ jobs:
         id: setup-devenv
         uses: seanmiddleditch/gha-setup-vsdevenv@v4
 
-      # - name: run the disable OutOfProc
-      #   id: run-disable
-      #   shell: cmd
-      #   run: |
-      #     DisableOutOfProcBuild.exe
+      - name: run the disable OutOfProc
+        id: run-disable
+        shell: cmd
+        run: |
+          DisableOutOfProcBuild.exe
 
       - name: build a setup project
         id: run-build-on-setup
