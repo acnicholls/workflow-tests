@@ -39,7 +39,7 @@ jobs:
         id: run-build-on-setup
         shell: cmd
         run: |
-          devnenv .\workflow-tests.sln ^
+          devenv .\workflow-tests.sln ^
           /Build Debug ^
           /Project workflow-tests-setup.vdproj ^
           /Log InstallerBuild.log ^
