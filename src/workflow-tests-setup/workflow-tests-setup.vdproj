@@ -27,8 +27,32 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_739C97DE3C4374746C774624D33F28EA"
+        "OwnerKey" = "8:_B126E477AF574BC18B64BE9F3DFA49D2"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_B126E477AF574BC18B64BE9F3DFA49D2"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_D0D81B88F7D74CF1B95FCC7CB78336DD"
         "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_739C97DE3C4374746C774624D33F28EA"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_B126E477AF574BC18B64BE9F3DFA49D2"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -119,6 +143,14 @@
                 "Architecture" = "2:0"
                 "Runtime" = "2:0"
                 }
+                "{A06ECF26-33A3-4562-8140-9B0E340D4F24}:_CBAF7AD8A476489092A0E197CF832B19"
+                {
+                "Name" = "8:.NET Framework"
+                "Message" = "8:[VSDNETMSG]"
+                "FrameworkVersion" = "8:.NETFramework,Version=v4.7.2"
+                "AllowLaterVersions" = "11:FALSE"
+                "InstallUrl" = "8:http://go.microsoft.com/fwlink/?LinkId=863262"
+                }
             }
         }
         "File"
@@ -141,6 +173,37 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_739C97DE3C4374746C774624D33F28EA"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:System.Net.Http, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
+                "ScatterAssemblies"
+                {
+                    "_739C97DE3C4374746C774624D33F28EA"
+                    {
+                    "Name" = "8:System.Net.Http.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:System.Net.Http.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_0F8E25AADA174B02A590AD8AAFD7D1AA"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
         }
@@ -211,7 +274,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:workflow-tests-setup"
         "ProductCode" = "8:{E9892E37-6C4D-4177-8283-AEFA099298A6}"
-        "PackageCode" = "8:{BFEEDF0D-661C-4A2A-8BE8-6A309C6DD16A}"
+        "PackageCode" = "8:{4AE11AF9-F6E4-4299-8B3E-7D5C137D762B}"
         "UpgradeCode" = "8:{7B7E538E-D1F8-45F6-9D7B-F7E0CFC94769}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -340,6 +403,20 @@
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
             "Target" = "8:_679CB87AEDB44AE6BB828157FF347781"
+            "Folder" = "8:_8E1F5C93987F491A8F70EA831D14B3A1"
+            "WorkingFolder" = "8:_0F8E25AADA174B02A590AD8AAFD7D1AA"
+            "Icon" = "8:"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_78DA22AAC8B04B7FA71B5D7AB247E7F0"
+            {
+            "Name" = "8:old-net-ui"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_B126E477AF574BC18B64BE9F3DFA49D2"
             "Folder" = "8:_8E1F5C93987F491A8F70EA831D14B3A1"
             "WorkingFolder" = "8:_0F8E25AADA174B02A590AD8AAFD7D1AA"
             "Icon" = "8:"
@@ -781,6 +858,34 @@
             "OutputConfiguration" = "8:"
             "OutputGroupCanonicalName" = "8:PublishItems"
             "OutputProjectGuid" = "8:{EE35D236-54FD-4D59-BD92-F724086A4B10}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_B126E477AF574BC18B64BE9F3DFA49D2"
+            {
+            "SourcePath" = "8:..\\..\\workflow-tests-ui-framework\\obj\\Debug\\workflow-tests-ui-framework.exe"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_0F8E25AADA174B02A590AD8AAFD7D1AA"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:Built"
+            "OutputProjectGuid" = "8:{4627429B-DC5F-488D-8F64-BB0CE334C8BE}"
             "ShowKeyOutput" = "11:TRUE"
                 "ExcludeFilters"
                 {
